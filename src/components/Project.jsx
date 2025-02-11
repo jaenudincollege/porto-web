@@ -1,5 +1,12 @@
+import NavBar from "./NavBar";
+
 function Project() {
-  return <div>Project</div>;
+  return (
+    <>
+      <NavBar />
+      <div>Project</div>
+    </>
+  );
 }
 
 export default Project;
