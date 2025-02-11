@@ -1,12 +1,22 @@
+import { NavLink } from "react-router-dom";
+
 function NavBar() {
   return (
     <nav>
-      <span>JayNode</span>
+      <NavLink to="/">JayNode</NavLink>
       <ul>
-        <li>Home</li>
-        <li>About</li>
-        <li>Work</li>
-        <li>Contact</li>
+        <li>
+          <NavLink to="about">About</NavLink>
+        </li>
+        <li>
+          <NavLink to="project">Project</NavLink>
+        </li>
+        <li>
+          <NavLink to="contact">Contact</NavLink>
+        </li>
+        <li>
+          <NavLink to="login">Login</NavLink>
+        </li>
       </ul>
     </nav>
   );
