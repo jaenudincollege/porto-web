@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer components {
+  .cta {
+    @apply bg-sky-400 text-sky-50 hover:bg-sky-500 hover:text-white;
+  }
+}
