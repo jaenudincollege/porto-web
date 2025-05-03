@@ -8,7 +8,7 @@ const HeroSection = () => {
       <div className="mx-auto grid max-w-7xl grid-cols-1 grid-rows-2 justify-items-center gap-y-8 px-4 md:grid md:grid-cols-2 lg:px-0">
         <div className="row-start-2 row-end-2 place-items-center justify-items-center space-y-4 md:row-start-1 md:justify-items-start md:self-center">
           <h1 className="text-4xl md:text-5xl lg:text-7xl">
-            Hi, i'm{" "}
+            Hi, i&apos;m{" "}
             <span className="font-bold text-sky-400 hover:text-sky-700">
               Jaenudin
             </span>
