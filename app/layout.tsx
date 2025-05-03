@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "./_components/navbar";
-
-const roboto = Roboto({
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
+import { roboto } from "./_utils/font";
 
 export const metadata: Metadata = {
   title: "Portfolio Jaenudin",
@@ -19,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.className}  antialiased`}>
+      <body className={`${roboto.className} antialiased`}>
         <Navbar />
         <main>{children}</main>
       </body>
