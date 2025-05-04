@@ -1,33 +1,36 @@
 "use client";
 import Link from "next/link";
 import { rs } from "../_utils/font";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { motion, useMotionValueEvent, useScroll } from "motion/react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
-  const lastScrollY = useRef(0);
+  const { scrollY } = useScroll();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() || 0;
 
-      if (currentScrollY > lastScrollY.current && currentScrollY > 40) {
-        setHidden(true);
-      } else {
-        setHidden(false);
-      }
-      lastScrollY.current = currentScrollY;
-    };
+    if (isOpen) return;
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    if (latest > previous && latest > 40) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
 
   return (
-    <nav
-      className={`sticky top-0 z-10 transform bg-white shadow-sm transition-transform duration-300 ${hidden ? "-translate-y-full" : "translate-y-0"}`}
+    <motion.nav
+      variants={{
+        visible: { y: 0 },
+        hidden: { y: "-100%" },
+      }}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className={`sticky top-0 z-10 bg-white shadow-sm`}
     >
       <div className="mx-auto max-w-7xl">
         <div className="flex h-16 items-center justify-between px-4 lg:px-0">
@@ -95,7 +98,7 @@ const Navbar = () => {
           </Link>
         </div>
       )}
-    </nav>
+    </motion.nav>
   );
 };
 
