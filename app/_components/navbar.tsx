@@ -3,11 +3,35 @@ import Link from "next/link";
 import { rs } from "../_utils/font";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { motion, useMotionValueEvent, useScroll } from "motion/react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() || 0;
+
+    if (isOpen) return;
+
+    if (latest > previous && latest > 40) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
+
   return (
-    <nav className="shadow-sm">
+    <motion.nav
+      variants={{
+        visible: { y: 0 },
+        hidden: { y: "-100%" },
+      }}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className={`sticky top-0 z-10 bg-white shadow-sm`}
+    >
       <div className="mx-auto max-w-7xl">
         <div className="flex h-16 items-center justify-between px-4 lg:px-0">
           {/* logo */}
@@ -36,7 +60,7 @@ const Navbar = () => {
 
           <Link
             href="/contact"
-            className="hidden rounded-full border px-6 py-2 md:block cta"
+            className="cta hidden rounded-full border px-6 py-2 md:block"
           >
             Contact
           </Link>
@@ -69,10 +93,12 @@ const Navbar = () => {
               <Link href="/experience">Experience</Link>
             </li>
           </ul>
-          <Link href="/contact" className="grid place-items-center py-2 cta">Contact</Link>
+          <Link href="/contact" className="cta grid place-items-center py-2">
+            Contact
+          </Link>
         </div>
       )}
-    </nav>
+    </motion.nav>
   );
 };
 
